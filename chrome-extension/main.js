@@ -34,7 +34,7 @@ function resetQRCode() {
 }
 
 function injectImportHistoryButton() {
-  var $btnInject = $("<button id='btnImportHistory'>导入到购物助手</button>");
+  var $btnInject = $("<button id='btnImportHistory'>导入到乐享</button>");
   $btnInject.click(function () {
     importHistory();
   });
