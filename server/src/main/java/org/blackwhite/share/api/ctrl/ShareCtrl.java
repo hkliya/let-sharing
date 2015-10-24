@@ -80,5 +80,4 @@ public class ShareCtrl extends Controller{
 		render.addData("page", page);
 		render(render);
 	}
-	
 }

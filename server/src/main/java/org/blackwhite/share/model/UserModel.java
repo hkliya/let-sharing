@@ -37,6 +37,7 @@ public class UserModel extends Model<UserModel>{
 		user.set("username", username)
 			.set("password", tPassword)
 			.set("salt", salt)
+			.set("tags", "")
 			.set("createTime", new Date());
 		return user.save();
 	}

@@ -68,7 +68,9 @@ public class ExprModel extends Model<ExprModel>{
 		ExprModel expr = new ExprModel();
 		expr.set("shareId", shareId)
 			.set("userId", userId)
-			.set("createTime", new Date());
+			.set("createTime", new Date())
+			.set("status", 1)
+			.set("startTime", new Date());
 		boolean flag =expr.save();
 		if(flag){
 			return expr.getInt("id");
@@ -108,6 +110,15 @@ public class ExprModel extends Model<ExprModel>{
 		String tsql = ModelUtils.buildSqlIn(sql.toString(), "??", shareIds);
 		List<ExprModel> list = find(tsql);
 		return CollectionUtils.toSafeList(list); 
+	}
+
+	public ExprModel latest(int userId) {
+		StringBuilder where = new StringBuilder();
+		where.append("select expr.id,expr.score,expr.comment,expr.createTime ")
+			 .append(" from expr expr ")
+			 .append(" inner join share share on share.id = expr.shareId ")
+			 .append(" where share.userId=? and expr.status = 1 ");
+		return findFirst(where.toString(),userId);
 	}
 
 }

@@ -1,7 +1,12 @@
 package org.blackwhite.share.model;
 
+import java.util.Date;
+
+import org.blackwhite.share.util.StringUtils;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 
@@ -23,6 +28,11 @@ public class BoughtHistoryModel extends Model<BoughtHistoryModel>{
 			String url = obj.getString("url");
 			String imageURL = obj.getString("imageURL");
 			String bought_at = obj.getString("bought_at");
+			Date date = StringUtils.convertToDate(bought_at, "yyyy-MM-dd");
+			date = date == null ? new Date() : date;
+			if(findByname(userId, name)){
+				continue;
+			}
 			BoughtHistoryModel history = new BoughtHistoryModel();
 			history.set("userId", userId)
 				   .set("name", name)
@@ -31,5 +41,11 @@ public class BoughtHistoryModel extends Model<BoughtHistoryModel>{
 				   .set("bought_at", bought_at)
 				   .save();
 		}
+	}
+	
+	public boolean findByname(int userId, String name){
+		String where = " select count(id) from bought_history where userId = ? and name = ? ";
+		Long cnt = Db.queryLong(where,userId,name);
+		return cnt !=null && cnt > 0;
 	}
 }

@@ -33,19 +33,6 @@ public class ExprCtrl extends Controller{
 		render(render);
 	}
 	
-	//添加体验
-	public void add(){
-		int shareId = getParaToInt("shareId",0);
-		int userId = 1;
-		int exprId = ExprModel.dao.add(shareId,userId);
-		if(exprId != 0){
-			AjaxRender render = AjaxRender.success();
-			render.addData("exprId", exprId);
-			render(render);
-		}else{
-			render(AjaxRender.error());
-		}
-	}
 	
 	//取消订单
 	public void cancel(){
@@ -71,6 +58,29 @@ public class ExprCtrl extends Controller{
 		}
 	}
 	
+	//=========================
+	//添加体验
+	public void add(){
+		int shareId = getParaToInt("shareId",0);
+		int userId = 1;
+		int exprId = ExprModel.dao.add(shareId,userId);
+		if(exprId != 0){
+			AjaxRender render = AjaxRender.success();
+			render.addData("exprId", exprId);
+			render(render);
+		}else{
+			render(AjaxRender.error());
+		}
+	}
+	//循环
+	public void chooseLoop(){
+		int userId = 1;
+		ExprModel expr = ExprModel.dao.latest(userId);
+		AjaxRender render = AjaxRender.success();
+		render.addData("flag", expr == null ? 0 : 1);
+		render.addData("exprId", expr == null ? 0 : expr.getInt("id"));
+		render(render);
+	}
 	//结束体验
 	public void end(){
 		int id = getParaToInt("id", 0);
@@ -89,8 +99,8 @@ public class ExprCtrl extends Controller{
 		int userId = 1;
 		String comment = getPara("comment", "").trim();
 		String score = getPara("score", "").trim();
-		double tscore = Double.valueOf(score);
-		boolean flag = ExprModel.dao.comment(id,userId,tscore,comment);
+		//double tscore = Double.valueOf(score);
+		boolean flag = ExprModel.dao.comment(id,userId,5,comment);
 		if(flag){
 			render(AjaxRender.success());
 		}else{

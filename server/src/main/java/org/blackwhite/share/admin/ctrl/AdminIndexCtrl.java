@@ -9,8 +9,11 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.subject.Subject;
 import org.blackwhite.share.model.BoughtHistoryModel;
 import org.blackwhite.share.model.UserModel;
+import org.blackwhite.share.render.AjaxRender;
 import org.blackwhite.share.util.StringUtils;
+import org.blackwhite.share.validator.RegisterValidator;
 
+import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 
@@ -52,9 +55,29 @@ public class AdminIndexCtrl extends Controller{
 		render("/login.jsp");
 	}
 	
+	public void logout(){
+		Subject subject = SecurityUtils.getSubject();
+		subject.getSession().removeAttribute("user");
+		subject.getSession().stop();
+		redirect("login");
+	}
+	
+	public void regist(){
+		render("/regist.jsp");
+	}
+	
+	@Before(RegisterValidator.class)
+	public void doRegist(){
+		String username = getPara("username", "").trim();
+		String password = getPara("password", "").trim();
+		UserModel.dao.add(username,password);
+		AjaxRender render = AjaxRender.success("注册成功");
+		render(render);
+	}
+	
 	@RequiresAuthentication
 	public void buyList(){
-		int pageNumber = getParaToInt("pageNumber",1);
+		int pageNumber = getParaToInt("pageNum",1);
 		int pageSize = getParaToInt("pageSize",20);
 		Subject subject = SecurityUtils.getSubject();
 		UserModel user = (UserModel)subject.getSession().getAttribute("user");
@@ -64,12 +87,20 @@ public class AdminIndexCtrl extends Controller{
 		setAttr("pageNum", page.getPageNumber());
 		setAttr("pageSize", page.getPageSize());
 		setAttr("totalRow", page.getTotalRow());
-		setPageUrl();
+		setPageUrl("buyList");
+		System.out.println(page.getPageNumber());
 		render("buyList.jsp");
 	}
 	
-	public void setPageUrl() {
-		String pageUrl = getRequest().getRequestURL().toString();
+	@RequiresAuthentication
+	public void delBuy(){
+		int id = getParaToInt("id",0);
+		BoughtHistoryModel.dao.deleteById(id);
+		setAttr("statusCode", 200);
+		renderJson();
+	}
+	
+	public void setPageUrl(String pageUrl) {
 		String params = getRequest().getQueryString();
 		if(params != null && params.trim().length() > 0){
 			pageUrl = StringUtils.concat(pageUrl, "?", params);
