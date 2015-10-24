@@ -2,7 +2,9 @@ package org.blackwhite.share.cfg;
 
 import org.blackwhite.share.interceptor.CommonInterceptor;
 import org.blackwhite.share.model.BoughtHistoryModel;
+import org.blackwhite.share.model.ExprModel;
 import org.blackwhite.share.model.ProductModel;
+import org.blackwhite.share.model.ShareModel;
 import org.blackwhite.share.model.UserModel;
 
 import redis.clients.jedis.Protocol;
@@ -47,9 +49,11 @@ public class HackConfig extends JFinalConfig{
 		
 		//active record plugin
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
-		arp.addMapping("user", UserModel.class);
-		arp.addMapping("product", ProductModel.class);
-		arp.addMapping("bought_history", BoughtHistoryModel.class);
+		arp.addMapping("user", UserModel.class);//用户表
+		arp.addMapping("product", ProductModel.class);//产品表
+		arp.addMapping("share", ShareModel.class);//分享表
+		arp.addMapping("expr", ExprModel.class);//体验表
+		arp.addMapping("bought_history", BoughtHistoryModel.class);//购买货物历史
 		me.add(arp);
 		
 		RedisPlugin redis = new RedisPlugin(

@@ -2,6 +2,7 @@ package org.blackwhite.share.service;
 
 import java.io.File;
 
+import com.jfinal.kit.PropKit;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.UploadManager;
@@ -10,12 +11,14 @@ import com.qiniu.util.Auth;
 
 public class QiniuFileService {
 
-	private static final String URL = "http://7ryl6g.com1.z0.glb.clouddn.com/";
+	private static final String URL = PropKit.use("ShareConfig.txt").get("qiniu.url", "");
+	private static final String ACCESS_KEY = PropKit.use("ShareConfig.txt").get("qiniu.accessKey", "");
+	private static final String SECRET_KEY = PropKit.use("ShareConfig.txt").get("qiniu.secretKey", "");
+	private static final String BUCKET = PropKit.use("ShareConfig.txt").get("qiniu.bucket", "");
 	
 	public static String upload(File file,String key){
-		Auth auth = Auth.create("i8XeRxx4ifM_6sXAZN4q5kwe98ZAP3ic2lDn5OZZ", 
-				"EhM2W7jU8DxZs25V1zxALN9FOikrUx0HFnRBud8C");
-		String token = auth.uploadToken("qiju");
+		Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
+		String token = auth.uploadToken(BUCKET);
 		UploadManager manager = new UploadManager();
 		try {
 			Response res = manager.put(file, key, token);

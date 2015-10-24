@@ -19,6 +19,12 @@
 		<artifactId>jstl</artifactId>
 		<version>1.2</version>
 	</dependency>
+	<!-- oreilly file upload -->
+	<dependency>
+		<groupId>servlets.com</groupId>
+		<artifactId>cos</artifactId>
+		<version>05Nov2002</version>
+	</dependency>
 	<!-- mysql -->
 	<dependency>
 		<groupId>mysql</groupId>
