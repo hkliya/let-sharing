@@ -86,4 +86,5 @@ public class UserCtrl extends Controller{
 		render.addData("page", page);
 		render(render);
 	}
+	
 }

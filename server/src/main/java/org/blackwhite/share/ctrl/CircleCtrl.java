@@ -12,7 +12,7 @@ import com.jfinal.core.Controller;
 public class CircleCtrl extends Controller{
 
 	public void catgory(){
-		AjaxRender render = AjaxRender.success("");
+		AjaxRender render = AjaxRender.success();
 		render(render);
 	}
 }

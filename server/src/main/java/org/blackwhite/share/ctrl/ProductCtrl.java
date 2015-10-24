@@ -23,8 +23,8 @@ public class ProductCtrl extends Controller{
 	//图片、文字搜索
 	public void search(){
 		String keyword = getKeyword();
-		System.out.println(keyword);
-		Page<ProductModel> page = ProductModel.dao.page(1, 20);
+		//TODO 未实现关键字查询
+		Page<ProductModel> page = ProductModel.dao.page(1, 20,keyword);
 		AjaxRender render = AjaxRender.success();
 		ProductModel product = page.getList().get(0);
 		render.addData("product", product);
