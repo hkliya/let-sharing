@@ -1,6 +1,5 @@
 package org.blackwhite.share.ctrl;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,10 +11,8 @@ import org.blackwhite.share.model.UserModel;
 import org.blackwhite.share.render.AjaxRender;
 import org.blackwhite.share.util.CollectionUtils;
 import org.blackwhite.share.util.ModelUtils;
-import org.blackwhite.share.util.StringUtils;
 
 import com.jfinal.core.Controller;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion.User;
 
 /**
  * 首页
