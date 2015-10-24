@@ -13,6 +13,9 @@ import com.alibaba.fastjson.JSONObject;
 @SuppressWarnings("deprecation")
 public class UserTest {
 
+	public static void main(String[] args) {
+		System.out.println(new Sha1Hash("123").toHex());
+	}
 	@Test
 	public void login(){
 		HttpRequest request = HttpRequest.post("http://localhost:1024/user/login")

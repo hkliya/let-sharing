@@ -9,6 +9,7 @@ import org.blackwhite.share.util.CollectionUtils;
 import org.blackwhite.share.util.ModelUtils;
 import org.blackwhite.share.util.StringUtils;
 
+import com.blackwhite.adt.UserADT;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 
@@ -68,6 +69,14 @@ public class UserModel extends Model<UserModel>{
 		String tsql = ModelUtils.buildSqlIn(sql.toString(), "??", userIds);
 		List<UserModel> list = find(tsql);
 		return CollectionUtils.toSafeList(list); 
+	}
+
+	public Object toADT() {
+		String username = getStr("username");
+		String avatar = getStr("avatar");
+		int sex = getInt("sex");
+		int id = getInt("id");
+		return new UserADT(id, username, avatar, sex);
 	}
 	
 	

@@ -18,9 +18,12 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
+import com.jfinal.ext.plugin.shiro.ShiroPlugin;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.redis.RedisPlugin;
+import com.jfinal.render.ViewType;
 
 public class HackConfig extends JFinalConfig{
 
@@ -28,11 +31,15 @@ public class HackConfig extends JFinalConfig{
 	public void configConstant(Constants me) {
 		loadPropertyFile("ShareConfig.txt");
 		me.setDevMode(getPropertyToBoolean("devMode", false));
+		me.setViewType(ViewType.JSP);
+		me.setError404View("/404.jsp");
+		me.setError500View("/500.jsp");
 	}
 
 	@Override
 	public void configRoute(Routes me) {
-		me.add(new HackRoute());
+		me.add(new HackApiRoute());
+		me.add(new HackAdminRoute());
 	}
 
 	@Override
@@ -58,6 +65,7 @@ public class HackConfig extends JFinalConfig{
 		arp.addMapping("bought_history", BoughtHistoryModel.class);//购买货物历史
 		me.add(arp);
 		
+		//redisplugin
 		RedisPlugin redis = new RedisPlugin(
 				getProperty("redis.cacheName",""), 
 				getProperty("redis.host",""), 
@@ -65,11 +73,21 @@ public class HackConfig extends JFinalConfig{
 				getPropertyToInt("redis.timeout", Protocol.DEFAULT_TIMEOUT), 
 				getProperty("redis.password", ""));
 		me.add(redis);
+		
+		//shiro plugin
+		HackAdminRoute routes = new HackAdminRoute();
+		routes.config();
+		ShiroPlugin shiro = new ShiroPlugin(routes);
+		shiro.setSuccessUrl("/");
+		shiro.setLoginUrl("/login");
+		shiro.setUnauthorizedUrl("/login");
+		me.add(shiro);
 	}
 
 	@Override
 	public void configInterceptor(Interceptors me) {
 		me.addGlobalActionInterceptor(new CommonInterceptor());
+		me.addGlobalActionInterceptor(new ShiroInterceptor());
 	}
 
 	@Override

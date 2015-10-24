@@ -168,4 +168,12 @@ public class StringUtils {
         }    
         return b;  
     } 
+    
+    public static String concat(String...strs){
+		StringBuilder sb = new StringBuilder();
+		for (String str : strs) {
+			sb.append(str);
+		}
+		return sb.toString();
+	}
 }
