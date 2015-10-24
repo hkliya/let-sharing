@@ -33,4 +33,15 @@ public class UserTest {
 		JSONObject json = JSON.parseObject(resp.bodyText());
 		Assert.assertEquals(json.getIntValue("code"), 200);
 	}
+	
+	@Test
+	public void uploadLoc(){
+		HttpRequest request = HttpRequest.post("http://localhost:1024/user/uploadLoc")
+				 .form("lat", 22.529214)
+				 .form("lng", 113.942519);
+		HttpResponse resp = request.send();
+		System.out.println(resp.bodyText());
+		JSONObject json = JSON.parseObject(resp.bodyText());
+		Assert.assertEquals(json.getIntValue("code"), 200);
+	}
 }

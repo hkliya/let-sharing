@@ -1,6 +1,11 @@
 package org.blackwhite.share.model;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.blackwhite.share.util.CollectionUtils;
+import org.blackwhite.share.util.ModelUtils;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
@@ -89,6 +94,20 @@ public class ExprModel extends Model<ExprModel>{
 				select, where.toString(),shareId,userId);
 		return page;
 		
+	}
+
+	public List<ExprModel> findByShareIds(List<Integer> shareIds) {
+		if(CollectionUtils.isBlank(shareIds)){
+			return new LinkedList<ExprModel>();
+		}
+		StringBuilder sql = new StringBuilder();
+		sql.append(" select expr.id,expr.shareId,expr.userId,user.username,expr.comment,expr.createTime,expr.score ")
+		   .append(" from expr expr ")
+		   .append(" left join user user on user.id = expr.userId ")
+		   .append(" where expr.shareId in (??)");
+		String tsql = ModelUtils.buildSqlIn(sql.toString(), "??", shareIds);
+		List<ExprModel> list = find(tsql);
+		return CollectionUtils.toSafeList(list); 
 	}
 
 }

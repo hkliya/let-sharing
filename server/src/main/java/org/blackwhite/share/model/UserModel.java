@@ -55,6 +55,20 @@ public class UserModel extends Model<UserModel>{
 		List<UserModel> list = find(sql);
 		return CollectionUtils.toSafeList(list);
 	}
+
+	public List<UserModel> findByIds(List<Integer> userIds) {
+		if(CollectionUtils.isBlank(userIds)){
+			return new LinkedList<UserModel>();
+		}
+		StringBuilder sql = new StringBuilder();
+		sql.append(" select user.id,user.username,user.avatar,ifnull(0,loc.lng) as lng,ifnull(0,loc.lat) as lat ")
+		   .append(" from user user ")
+		   .append(" left join user_loc loc on loc.userId = user.id ")
+		   .append(" where user.id in (??)");
+		String tsql = ModelUtils.buildSqlIn(sql.toString(), "??", userIds);
+		List<UserModel> list = find(tsql);
+		return CollectionUtils.toSafeList(list); 
+	}
 	
 	
 }

@@ -48,11 +48,18 @@ public class ShareModel extends Model<ShareModel>{
 	
 	public ShareModel detail(int id){
 		StringBuilder where = new StringBuilder();
-		where.append("select share.id,share.name,share.content,share.imageURL,share.createTime,user.username,user.avatar ")
+		where.append("select share.id,share.userId,share.name,share.content,share.imageURL,share.createTime,user.username,user.avatar ")
 		     .append(" from share share ")
 			 .append(" inner join user user on user.id = share.userId ")
 			 .append(" where share.id = ?");
 		return findFirst(where.toString(),id);
+	}
+
+	//TODO 搜索并没有完成
+	public List<ShareModel> search(int pageSize,int userId, String keyword) {
+		String sql = "select id,userId,name,imageURL,content,createTime from share where userId <> ? order by createTime desc limit ? ";
+		List<ShareModel> list = find(sql,userId,pageSize);
+		return CollectionUtils.toSafeList(list);
 	}
 	
 }	

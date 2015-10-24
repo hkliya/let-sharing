@@ -1,6 +1,7 @@
 package org.blackwhite.share.ctrl;
 
 import org.blackwhite.share.model.BoughtHistoryModel;
+import org.blackwhite.share.model.UserLocModel;
 import org.blackwhite.share.model.UserModel;
 import org.blackwhite.share.render.AjaxRender;
 import org.blackwhite.share.util.StringUtils;
@@ -87,4 +88,19 @@ public class UserCtrl extends Controller{
 		render(render);
 	}
 	
+	public void uploadLoc(){
+		int userId = 1;
+		String lat = getPara("lat", "0").trim();
+		String lng = getPara("lng", "0").trim();
+		
+		double latVal = Double.valueOf(lat);
+		double lngVal = Double.valueOf(lng);
+		
+		if(latVal == 0 || lngVal == 0){
+			render(AjaxRender.success());
+			return;
+		}
+		UserLocModel.dao.save(userId,latVal,lngVal);
+		render(AjaxRender.success());
+	}
 }
