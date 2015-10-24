@@ -1,3 +1,6 @@
+//config
+var letSharingServer = "http://10.2.200.93:1024";
+
 var $btn = $('#pfhlkd_buycar');
 var $container = $btn.parent();
 
@@ -34,7 +37,7 @@ function resetQRCode() {
 }
 
 function injectImportHistoryButton() {
-  var $btnInject = $("<button id='btnImportHistory'>导入到乐享</button>");
+  var $btnInject = $("<button id='btnImportHistory'>导出到乐享</button>");
   $btnInject.click(function () {
     importHistory();
   });
@@ -53,14 +56,25 @@ function parseProducts() {
       name: $.trim($(item).find('.p-name a').text()),
       url: $(item).find('.p-name a').attr('href'),
       imageURL: $(item).find('.p-img img').attr('src'),
-      bought_at: $.trim($(item).find('.p-tiem').text()).match(/\d{4}-\d{2}-\d{2}/)
+      bought_at: $.trim($(item).find('.p-tiem').text()).match(/\d{4}-\d{2}-\d{2}/)[0]
     };
   });
 }
 
 function uploadToServer(products) {
-  alert('导入成功！');
-  alert(JSON.stringify(products));
+  $("#btnImportHistory").text("正在导出，请稍候...");
+  $.post(letSharingServer + '/api/user/historyImport', {
+    "username": 'tiger',
+    "history": JSON.stringify(products)
+  }, function(data) {
+    $("#btnImportHistory").text("导出到乐享");
+    console.log(data);
+    if (data.code == 300) {
+      alert("服务器报错了！");
+    } else if (data.code == 200) {
+      document.location = letSharingServer + '/index';
+    }
+  }, "json");
 }
 
 function text() {
