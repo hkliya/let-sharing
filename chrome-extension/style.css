@@ -1,0 +1,29 @@
+.btn-try {
+  background-color: #666;
+  margin-bottom: 15px;
+}
+
+.btn-try:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+.qrcode {
+  position: absolute;
+  z-index: 999;
+  top: -200px;
+  left: -400px;
+  width: 400px;
+  height: 400px;
+}
+
+#btnImportHistory {
+  width: 100%;
+  font-size: 20px;
+  background-color: #F0D753;
+  color: #fff;
+  height: 50px;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
