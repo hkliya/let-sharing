@@ -22,3 +22,4 @@ hs_err_pid*
 */target/**
 /server/target/
 /target/
+/server/src/main/webapp/upload/
