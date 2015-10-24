@@ -67,9 +67,14 @@ function text() {
   var data = {
     "imageURL": getImageURL(),
     "productName": encodeURIComponent(getProductName()),
-    "color": encodeURIComponent(getColor())
+    "color": encodeURIComponent(getColor()),
+    "price": getPrice()
   };
   return JSON.stringify(data);
+}
+
+function getPrice() {
+  return $("#commodityCurrentPrice").text();
 }
 
 function getProductName() {
