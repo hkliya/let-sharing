@@ -13,6 +13,7 @@
 #import "DetailVC.h"
 #import "ScanVC.h"
 #import "AppDelegate.h"
+#import "CamVC.h"
 
 #import "UIImageView+WebCache.h"
 
@@ -89,12 +90,7 @@
         NSLogD(@"%@", @(btnIndex));
         if (btnIndex == 0)
         {
-            _cameraView = [[CameraSessionView alloc] initWithFrame:self.view.frame];
-            _cameraView.delegate = self;
-            _cameraView.hidden = NO;
-            
-            UIViewController *tvc = [(AppDelegate *)[UIApplication sharedApplication].delegate tabBarController];
-            [tvc.view addSubview:_cameraView];
+            [self gotoCamVC];
         }
         else if (btnIndex == 1)
         {
@@ -125,6 +121,17 @@
 }
 
 #pragma mark -
+
+- (void)gotoCamVC
+{
+    _cameraView = [[CameraSessionView alloc] initWithFrame:self.view.frame];
+    _cameraView.delegate = self;
+    _cameraView.hidden = NO;
+    
+    [self.tvc.view addSubview:_cameraView];
+    
+}
+
 - (void)gotoScanVC
 {
     ScanVC *vc = [[ScanVC alloc] init];
@@ -140,6 +147,8 @@
         [self.photoView sd_setImageWithURL:[NSURL URLWithString:URL] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     } withIdentifier:@"QRCode"];
 }
+
+
 #pragma mark - CACameraSessionDelegate
 - (void)didCaptureImage:(UIImage *)image
 {
