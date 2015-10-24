@@ -1,1 +1,0 @@
-../../../XYQuick/XYQuick/event/modules/XYMulticastDelegate.h

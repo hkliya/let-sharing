@@ -1,1 +1,0 @@
-../../../XYQuick/XYQuick/ui/modules/XYTabBar.h
