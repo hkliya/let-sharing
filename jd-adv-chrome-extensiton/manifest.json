@@ -1,0 +1,16 @@
+{
+  "name": "jd-adv",
+  "manifest_version": 2,
+  "version": "1.0",
+  "description": "Show advertisement on jd.com",
+  "content_scripts": [{
+    "matches": ["http://www.jd.com/*", "https://www.jd.com/*"],
+    "css": ["style.css"],
+    "js": ["jquery-1.11.3.min.js", "main.js"],
+    "run_at": "document_end",
+    "all_frames": false
+    }],
+    "permissions": [
+      "tabs", "http://*/*","https://*/*"
+    ]
+  }
