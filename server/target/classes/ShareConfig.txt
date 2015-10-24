@@ -1,0 +1,12 @@
+#测试环境
+jdbcUrl = jdbc:mysql://127.0.0.1/hackathon?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+user = root
+password = ncthinker.com
+devMode = true
+
+#redis
+redis.cacheName=hackathon
+redis.host=luojh.cn
+redis.port=6379
+redis.timeout=3000
+redis.password=root321
