@@ -1,4 +1,3 @@
-<%@page import="org.junit.experimental.categories.Categories.IncludeCategory"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/common/jstl.jsp" %>      
 <%@ include file="/common/basePath.jsp" %>      
@@ -181,7 +180,7 @@
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="<shiro:principal property="avatar"/>" class="img-circle" alt="User Image" />
+                                    <img src="http://img5.imgtn.bdimg.com/it/u=3181218693,1136318580&fm=21&gp=0.jpg" class="img-circle" alt="User Image" />
                                     <p><shiro:principal property="username"/></p>
                                 </li>
                                 <li><a href="logout" class="btn btn-default btn-flat">退出</a></li>
@@ -200,7 +199,7 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<shiro:principal property="avatar"/>" class="img-circle" alt="User Image" />
+                            <img src="http://img5.imgtn.bdimg.com/it/u=3181218693,1136318580&fm=21&gp=0.jpg" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
                             <p style="color:white"><shiro:principal property="username"/></p>

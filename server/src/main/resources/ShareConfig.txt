@@ -6,16 +6,16 @@ devMode = true
 
 #redis
 redis.cacheName=hackathon
-redis.host=luojh.cn
+redis.host=127.0.0.1
 redis.port=6379
 redis.timeout=3000
-redis.password=root321
+redis.password=
 
 #qiniu
-qiniu.url=http://7ryl6g.com1.z0.glb.clouddn.com/
-qiniu.accessKey=i8XeRxx4ifM_6sXAZN4q5kwe98ZAP3ic2lDn5OZZ
-qiniu.secretKey=EhM2W7jU8DxZs25V1zxALN9FOikrUx0HFnRBud8C
+qiniu.url=
+qiniu.accessKey=
+qiniu.secretKey=
 qiniu.bucket=qiju
 
 #upload file save path
-savePath=/Users/luojh/test/hackathon
+savePath=
