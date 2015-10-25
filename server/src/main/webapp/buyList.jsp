@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/common/jstl.jsp" %>
-</script>
 <section class="content-header">
     <h1>
     我的宝贝
@@ -15,9 +14,9 @@
 
 <section class="content">
 	<div>
-		<a href="http://club.jd.com/myJdcomments/myJdcomments.action" target="_blank" class="btn btn-danger">导入京东</a>
-		<a href="http://club.jd.com/myJdcomments/myJdcomments.action" target="_blank" class="btn btn-warning">导入淘宝</a>
-		<a href="http://club.jd.com/myJdcomments/myJdcomments.action" target="_blank" class="btn btn-primary">导入拍拍</a>
+		<a href="http://club.jd.com/myJdcomments/myJdcomments.action?username=<shiro:principal property="username"/>" target="_blank" class="btn btn-danger">导入京东</a>
+		<a href="http://club.jd.com/myJdcomments/myJdcomments.action?username=<shiro:principal property="username"/>" target="_blank" class="btn btn-warning">导入淘宝</a>
+		<a href="http://club.jd.com/myJdcomments/myJdcomments.action?username=<shiro:principal property="username"/>" target="_blank" class="btn btn-primary">导入拍拍</a>
 		<a href="javascript:void(0);" id="beginShare" class="btn btn-info">开始分享</a>
 		<img id="qrcode" style="width: 400px; height: 400px;position: absolute; top: 180px;left: 580px;display: none" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2868037146,1713855063&fm=58"/>
 	</div>
